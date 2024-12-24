@@ -8,4 +8,4 @@ setBounds-> defines position(cordinates) on frame
 # SignUpOne
  display similar to login page
  randon function for 4 digit numner
- 
+ connection with database (conn.java)
