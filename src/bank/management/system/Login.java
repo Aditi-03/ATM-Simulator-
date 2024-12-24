@@ -46,7 +46,7 @@ public class Login extends JFrame implements ActionListener {
                 }
             }
         });
-        
+
         add(cardTextField);
 
         JLabel pin = new JLabel("PIN:");
@@ -87,7 +87,8 @@ public class Login extends JFrame implements ActionListener {
         } else if (e.getSource() == loginBtn) {
 
         } else if (e.getSource() == signUp) {
-
+            setVisible(false);
+            new SignupOne().setVisible(true);
         }
 
     }
