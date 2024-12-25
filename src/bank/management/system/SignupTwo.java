@@ -2,7 +2,6 @@ package bank.management.system;
 
 import javax.swing.*;
 import java.awt.*;
-import com.toedter.calendar.JDateChooser;
 import java.awt.event.*;
 
 // import java.util.*;
@@ -170,6 +169,8 @@ public class SignupTwo extends JFrame implements ActionListener {
 
             c.s.executeUpdate(query);
             setVisible(false);
+            new SignupThree(formno).setVisible(true);
+            
 
         } catch (Exception ex) {
             System.out.println(ex);
