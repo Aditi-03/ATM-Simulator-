@@ -13,7 +13,7 @@ public class Fastcash extends JFrame implements ActionListener {
     String pinnumber;
 
     Fastcash(String pinnumber) {
-        pinnumber = this.pinnumber;
+        this.pinnumber = pinnumber;
         setLayout(null);
 
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icons/atm.jpg"));
