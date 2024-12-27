@@ -187,6 +187,8 @@ public class SignupThree extends JFrame implements ActionListener {
 
                     JOptionPane.showMessageDialog(null, "Card Number: " + cardno + "\n Pin: " + pinno);
                 }
+                setVisible(false);
+                new Deposit(pinno).setVisible(true);
 
             } catch (
 
@@ -197,14 +199,16 @@ public class SignupThree extends JFrame implements ActionListener {
         }
 
         else if (e.getSource() == cancel) {
-    
-            c1.setSelected(false);
-            c2.setSelected(false);
-            c3.setSelected(false);
-            c4.setSelected(false);
-            c5.setSelected(false);
-            c6.setSelected(false);
-            c7.setSelected(false);
+
+            // c1.setSelected(false);
+            // c2.setSelected(false);
+            // c3.setSelected(false);
+            // c4.setSelected(false);
+            // c5.setSelected(false);
+            // c6.setSelected(false);
+            // c7.setSelected(false);
+            setVisible(false);
+            new Login().setVisible(true);
 
         }
 

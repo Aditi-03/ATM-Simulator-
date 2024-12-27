@@ -13,6 +13,7 @@ public class Transactions extends JFrame implements ActionListener {
     Transactions(String pinnumber) {
         pinnumber = this.pinnumber;
         setLayout(null);
+
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icons/atm.jpg"));
         Image i2 = i1.getImage().getScaledInstance(900, 900, Image.SCALE_DEFAULT);
         ImageIcon i3 = new ImageIcon(i2);
@@ -26,8 +27,6 @@ public class Transactions extends JFrame implements ActionListener {
         text.setForeground(Color.WHITE);
         text.setFont(new Font("System", Font.BOLD, 16));
         image.add(text);
-        image.setBounds(0, 0, 900, 900);
-        add(image);
 
         deposit = new JButton("Deposit");
         deposit.setBounds(170, 415, 150, 30);
@@ -75,7 +74,17 @@ public class Transactions extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == exit) {
             System.exit(0);
+        } else if (e.getSource() == deposit) {
+            setVisible(false);
+            new Deposit(pinnumber).setVisible(true);
+        } else if (e.getSource() == withdrawl) {
+            setVisible(false);
+            new Withdrawl(pinnumber).setVisible(true);
+        } else if (e.getSource() == fastcash) {
+            setVisible(false);
+            new Fastcash(pinnumber).setVisible(true);
         }
+
     }
 
     public static void main() {
