@@ -150,7 +150,7 @@ public class SignupThree extends JFrame implements ActionListener {
                 type = "Fixed Deposit";
             } else if (type3.isSelected()) {
                 type = "Current";
-            } else if (type3.isSelected()) {
+            } else if (type4.isSelected()) {
                 type = "Recurring Deposit";
             }
 
@@ -174,7 +174,7 @@ public class SignupThree extends JFrame implements ActionListener {
             }
 
             try {
-                if (type.equals("")) {
+                if (type == null || type.equals("")) {
                     JOptionPane.showMessageDialog(null, "Account Type is Required");
                 } else {
                     Conn c = new Conn();
@@ -200,13 +200,6 @@ public class SignupThree extends JFrame implements ActionListener {
 
         else if (e.getSource() == cancel) {
 
-            // c1.setSelected(false);
-            // c2.setSelected(false);
-            // c3.setSelected(false);
-            // c4.setSelected(false);
-            // c5.setSelected(false);
-            // c6.setSelected(false);
-            // c7.setSelected(false);
             setVisible(false);
             new Login().setVisible(true);
 
