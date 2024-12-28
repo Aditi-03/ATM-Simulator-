@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class Fastcash extends JFrame implements ActionListener {
 
-    JButton deposit, withdrawl, fastcash, statement, pinchange, enquiry, exit;
+    JButton hundred, twohundred, fivehundred, thousand, fivethousand, tenthousand, exit;
     String pinnumber;
 
     Fastcash(String pinnumber) {
@@ -30,35 +30,35 @@ public class Fastcash extends JFrame implements ActionListener {
         text.setFont(new Font("System", Font.BOLD, 16));
         image.add(text);
 
-        deposit = new JButton("RS 100");
-        deposit.setBounds(170, 415, 150, 30);
-        deposit.addActionListener(this);
-        image.add(deposit);
+        hundred = new JButton("RS 100");
+        hundred.setBounds(170, 415, 150, 30);
+        hundred.addActionListener(this);
+        image.add(hundred);
 
-        withdrawl = new JButton("RS 200");
-        withdrawl.setBounds(350, 415, 150, 30);
-        withdrawl.addActionListener(this);
-        image.add(withdrawl);
+        twohundred = new JButton("RS 200");
+        twohundred.setBounds(350, 415, 150, 30);
+        twohundred.addActionListener(this);
+        image.add(twohundred);
 
-        fastcash = new JButton("RS 500");
-        fastcash.setBounds(170, 450, 150, 30);
-        fastcash.addActionListener(this);
-        image.add(fastcash);
+        fivehundred = new JButton("RS 500");
+        fivehundred.setBounds(170, 450, 150, 30);
+        fivehundred.addActionListener(this);
+        image.add(fivehundred);
 
-        statement = new JButton("RS 1000");
-        statement.setBounds(350, 450, 150, 30);
-        statement.addActionListener(this);
-        image.add(statement);
+        thousand = new JButton("RS 1000");
+        thousand.setBounds(350, 450, 150, 30);
+        thousand.addActionListener(this);
+        image.add(thousand);
 
-        pinchange = new JButton("RS 5000");
-        pinchange.setBounds(170, 485, 150, 30);
-        pinchange.addActionListener(this);
-        image.add(pinchange);
+        fivethousand = new JButton("RS 5000");
+        fivethousand.setBounds(170, 485, 150, 30);
+        fivethousand.addActionListener(this);
+        image.add(fivethousand);
 
-        enquiry = new JButton("RS 10000");
-        enquiry.setBounds(350, 485, 150, 30);
-        enquiry.addActionListener(this);
-        image.add(enquiry);
+        tenthousand = new JButton("RS 10000");
+        tenthousand.setBounds(350, 485, 150, 30);
+        tenthousand.addActionListener(this);
+        image.add(tenthousand);
 
         exit = new JButton("Back");
         exit.setBounds(350, 520, 150, 30);
