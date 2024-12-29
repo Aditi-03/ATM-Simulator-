@@ -79,30 +79,55 @@ public class Fastcash extends JFrame implements ActionListener {
             new Transactions(pinnumber).setVisible(true);
         } else {
             String amount = ((JButton) e.getSource()).getText().substring(3);
+            Date date = new Date();
             Conn c = new Conn();
             try {
-                String query = "Select * from bank where pin='" + pinnumber + "' ";
-                ResultSet rs = c.s.executeQuery(query);
+                // String query = "Select * from bank where pin='" + pinnumber + "' ";
+                // ResultSet rs = c.s.executeQuery(query);
 
-                int balance = 0;
-                while (rs.next()) {
-                    if (rs.getString("type").equals("Deposit")) {
-                        balance += Integer.parseInt(rs.getString("amount"));
-                    } else {
-                        balance -= Integer.parseInt(rs.getString("amount"));
+                // int balance = 0;
+                // while (rs.next()) {
+                //     if (rs.getString("type").equals("Deposit")) {
+                //         balance += Integer.parseInt(rs.getString("amount"));
+                //     } else {
+                //         balance -= Integer.parseInt(rs.getString("amount"));
+                //     }
+                // }
+                // if (e.getSource() != exit && balance < Integer.parseInt(amount)) {
+                //     JOptionPane.showMessageDialog(null, "Insufficient Balance!");
+                //     return;
+                // }
+                // Date date = new Date();
+                // String query1 = "insert into bank values('" + pinnumber + "', '" + date + "', 'Withdrawl', '" + amount
+                //         + "')";
+                // c.s.executeUpdate(query1);
+                // JOptionPane.showMessageDialog(null, "Rs " + amount + "debited successfully");
+                // setVisible(false);
+                // new Transactions(pinnumber).setVisible(true);
+                
+                    String query1 = "SELECT balance FROM bank WHERE pin = '" + pinnumber
+                            + "' ORDER BY date DESC LIMIT 1";
+                    ResultSet rs = c.s.executeQuery(query1);
+
+                    int currentBalance = 0;
+                    if (rs.next()) {
+                        currentBalance = rs.getInt("balance");
                     }
-                }
-                if (e.getSource() != exit && balance < Integer.parseInt(amount)) {
-                    JOptionPane.showMessageDialog(null, "Insufficient Balance!");
-                    return;
-                }
-                Date date = new Date();
-                String query1 = "insert into bank values('" + pinnumber + "', '" + date + "', 'Withdrawl', '" + amount
-                        + "')";
-                c.s.executeUpdate(query1);
-                JOptionPane.showMessageDialog(null, "Rs " + amount + "debited successfully");
-                setVisible(false);
-                new Transactions(pinnumber).setVisible(true);
+
+                    int withdrawAmount = Integer.parseInt(amount);
+                    int newBalance = currentBalance - withdrawAmount;
+
+                    if (newBalance < 0) {
+                        JOptionPane.showMessageDialog(null, "Insufficient balance");
+                        return;
+                    }
+                    String query = "insert into bank values('" + pinnumber + "', '" + date + "','Withdrawl', '" + amount
+                            + "', '" + newBalance + "');";
+
+                    c.s.executeUpdate(query);
+                    JOptionPane.showMessageDialog(null, "Rs " + amount + " withdrawl successfully");
+                    setVisible(false);
+                    new Transactions(pinnumber).setVisible(true);
 
             } catch (Exception ex) {
                 System.out.println(ex);

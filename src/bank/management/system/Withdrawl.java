@@ -3,6 +3,7 @@ package bank.management.system;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.ResultSet;
 import java.util.Date;
 
 public class Withdrawl extends JFrame implements ActionListener {
@@ -62,8 +63,24 @@ public class Withdrawl extends JFrame implements ActionListener {
             } else {
                 try {
                     Conn c = new Conn();
+                    String query1 = "SELECT balance FROM bank WHERE pin = '" + pinnumber
+                            + "' ORDER BY date DESC LIMIT 1";
+                    ResultSet rs = c.s.executeQuery(query1);
+
+                    int currentBalance = 0;
+                    if (rs.next()) {
+                        currentBalance = rs.getInt("balance");
+                    }
+
+                    int withdrawAmount = Integer.parseInt(number);
+                    int newBalance = currentBalance - withdrawAmount;
+
+                    if (newBalance < 0) {
+                        JOptionPane.showMessageDialog(null, "Insufficient balance");
+                        return;
+                    }
                     String query = "insert into bank values('" + pinnumber + "', '" + date + "','Withdrawl', '" + number
-                            + "');";
+                            + "', '" + newBalance + "');";
 
                     c.s.executeUpdate(query);
                     JOptionPane.showMessageDialog(null, "Rs " + number + " withdrawl successfully");
@@ -73,7 +90,6 @@ public class Withdrawl extends JFrame implements ActionListener {
                 } catch (Exception ex) {
                     System.out.println(ex);
                 }
-                
 
             }
 

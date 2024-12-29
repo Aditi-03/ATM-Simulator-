@@ -3,6 +3,7 @@ package bank.management.system;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.ResultSet;
 import java.util.Date;
 
 public class Deposit extends JFrame implements ActionListener {
@@ -62,18 +63,41 @@ public class Deposit extends JFrame implements ActionListener {
             } else {
                 try {
                     Conn c = new Conn();
-                    String query = "insert into bank values('" + pinnumber + "', '" + date + "','Deposit', '" + number
-                            + "');";
+                    String query1 = "SELECT balance FROM bank WHERE pin = '" + pinnumber
+                            + "' ORDER BY date DESC LIMIT 1";
+                    ResultSet rs = c.s.executeQuery(query1);
+                    
 
-                    c.s.executeUpdate(query);
-                    JOptionPane.showMessageDialog(null, "Rs " + number + " Deposited successfully");
-                    setVisible(false);
-                    new Transactions(pinnumber).setVisible(true);
+                    int currentBalance = 0;
+                    if (rs.next()) {
+                        currentBalance = rs.getInt("balance");
+                    }
+
+                    // String query = "insert into bank values('" + pinnumber + "', '" + date + "','Deposit', '" + number
+                    //         + "');";
+
+                    // c.s.executeUpdate(query);
+                    // JOptionPane.showMessageDialog(null, "Rs " + number + " Deposited successfully");
+                    // setVisible(false);
+                    // new Transactions(pinnumber).setVisible(true);   int depositAmount = Integer.parseInt(number);
+                    int depositAmount = Integer.parseInt(number);
+                    int newBalance = currentBalance + depositAmount;
+
+                // Insert the transaction and update the balance
+                String query2 = "INSERT INTO bank VALUES ('" 
+                                + pinnumber + "', '" 
+                                + date + "', 'Deposit', '" 
+                                + depositAmount + "', '" 
+                                + newBalance + "')";
+                c.s.executeUpdate(query2);
+
+                JOptionPane.showMessageDialog(null, "Rs " + number + " Deposited successfully");
+                setVisible(false);
+                new Transactions(pinnumber).setVisible(true);
 
                 } catch (Exception ex) {
                     System.out.println(ex);
                 }
-                
 
             }
 

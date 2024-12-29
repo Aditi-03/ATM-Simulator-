@@ -32,17 +32,13 @@ public class BalanceEnquiry extends JFrame implements ActionListener {
 
         Conn c = new Conn();
         try {
-            String query = "Select * from bank where pin='" + pinnumber + "' ";
+            String query = "SELECT balance FROM bank WHERE pin='" + pinnumber + "' ORDER BY date DESC LIMIT 1";
             ResultSet rs = c.s.executeQuery(query);
 
-            while (rs.next()) {
-                if (rs.getString("type").equals("Deposit")) {
-                    balance += Integer.parseInt(rs.getString("amount"));
-                } else {
-                    balance -= Integer.parseInt(rs.getString("amount"));
-                }
+            // Fetch the latest balance
+            if (rs.next()) {
+                balance = rs.getInt("balance");
             }
-
         } catch (Exception e) {
             System.out.println(e);
         }
