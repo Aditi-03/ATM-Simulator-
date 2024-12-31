@@ -2,9 +2,7 @@ package bank.management.system;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.sql.*;
-import java.util.Date;
 
 public class MiniStatement extends JFrame {
 
@@ -18,56 +16,65 @@ public class MiniStatement extends JFrame {
         add(mini);
 
         JLabel bank = new JLabel("XYZ Bank");
-        bank.setBounds(150, 20, 100, 20);
+        bank.setFont(new Font("RaleWay", Font.BOLD, 18));
+        bank.setBounds(150, 20, 200, 30);
         add(bank);
 
-        JLabel card = new JLabel("");
-        card.setBounds(20, 80, 300, 20);
+        JLabel card = new JLabel();
+        card.setFont(new Font("RaleWay", Font.PLAIN, 14));
+        card.setBounds(20, 60, 300, 20);
         add(card);
 
         JLabel balance = new JLabel();
+        balance.setFont(new Font("RaleWay", Font.PLAIN, 14));
         balance.setBounds(20, 400, 300, 20);
         add(balance);
 
         try {
             Conn c = new Conn();
-            String query = "select  * from login where pin= '" + pinnumber + "'";
+            // Fetch card number
+            String query = "SELECT * FROM login WHERE pin = '" + pinnumber + "'";
             ResultSet rs = c.s.executeQuery(query);
-            while (rs.next()) {
+            if (rs.next()) {
                 card.setText("Card Number: " + rs.getString("cardnumber").substring(0, 4) + "XXXXXXXX"
                         + rs.getString("cardnumber").substring(12));
-
             }
-
         } catch (Exception e) {
             System.out.println(e);
         }
 
         try {
             Conn c = new Conn();
-            int bal = 0;
-            String query1 = "select  * from bank where pin= '" + pinnumber + "'";
-            ResultSet rs = c.s.executeQuery(query1);
+
+            // Fetch all transactions
+            String query = "SELECT * FROM bank WHERE pin = '" + pinnumber + "' ORDER BY date DESC LIMIT 10";
+
+            ResultSet rs = c.s.executeQuery(query);
+            StringBuilder transactions = new StringBuilder("<html>");
             while (rs.next()) {
-                mini.setText(mini.getText() + "<html>" + rs.getString("date") + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-                        + rs.getString("type") + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + rs.getString("amount")
-                        + "<br></br></html>");
+                String date = rs.getString("date");
+                String type = rs.getString("type");
+                int amount = rs.getInt("amount");
 
-                if (rs.getString("type").equals("Deposit")) {
-                    bal += Integer.parseInt(rs.getString("amount"));
-                } else {
-                    bal -= Integer.parseInt(rs.getString("amount"));
-                }
-
+                transactions.append(date).append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
+                            .append(type).append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
+                            .append("Rs ").append(amount).append("<br>");
             }
+            transactions.append("</html>");
+            mini.setText(transactions.toString());
 
-            balance.setText("Your Current account balance is Rs " + bal);
-
-        } catch (Exception ex) {
-            System.out.println(ex);
+            // Fetch the most recent balance
+            String balanceQuery = "SELECT balance FROM bank WHERE pin = '" + pinnumber + "' ORDER BY date DESC LIMIT 1";
+            ResultSet balanceRs = c.s.executeQuery(balanceQuery);
+            if (balanceRs.next()) {
+                int bal = balanceRs.getInt("balance");
+                balance.setText("Your Current account balance is Rs " + bal);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
         }
 
-        mini.setBounds(20, 140, 400, 200);
+        mini.setBounds(20, 120, 400, 250);
 
         setSize(400, 600);
         setLocation(20, 20);
@@ -78,5 +85,4 @@ public class MiniStatement extends JFrame {
     public static void main(String[] args) {
         new MiniStatement("");
     }
-
 }

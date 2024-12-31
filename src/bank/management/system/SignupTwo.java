@@ -9,12 +9,14 @@ public class SignupTwo extends JFrame implements ActionListener {
 
     JTextField panTextField, aadharTextField;
     JRadioButton yesone, noone, yestwo, notwo;
-    JButton nextBtn;
+    JButton nextBtn, back;
     JComboBox religion, category, incomeCat, education, occComboBox;
     String formno;
+    SignupOne signupOneInstance;
 
-    SignupTwo(String formno) {
+    SignupTwo(String formno, SignupOne signupOneInstance) {
         this.formno = formno;
+        this.signupOneInstance = signupOneInstance;
         setLayout(null);
         setTitle("NEW ACCOUNT APPLICATION FORM - PAGE2");
 
@@ -110,18 +112,24 @@ public class SignupTwo extends JFrame implements ActionListener {
         citizerGroup.add(yesone);
         citizerGroup.add(noone);
 
-        JLabel exists = new JLabel("Existing Account");
-        exists.setFont(new Font("RaleWay", Font.BOLD, 20));
-        exists.setBounds(100, 540, 200, 30);
-        add(exists);
+        // JLabel exists = new JLabel("Existing Account");
+        // exists.setFont(new Font("RaleWay", Font.BOLD, 20));
+        // exists.setBounds(100, 540, 200, 30);
+        // add(exists);
 
-        yestwo = new JRadioButton("Yes");
-        yestwo.setBounds(300, 540, 60, 30);
-        add(yestwo);
+        // yestwo = new JRadioButton("Yes");
+        // yestwo.setBounds(300, 540, 60, 30);
+        // add(yestwo);
 
-        notwo = new JRadioButton("No");
-        notwo.setBounds(450, 540, 60, 30);
-        add(notwo);
+        // notwo = new JRadioButton("No");
+        // notwo.setBounds(450, 540, 60, 30);
+        // add(notwo);
+
+        back = new JButton("Back");
+        back.setFont(new Font("Raleway", Font.BOLD, 14));
+        back.setBounds(540, 660, 80, 30);
+        back.addActionListener(this);
+        add(back);
 
         nextBtn = new JButton("Next");
         nextBtn.setFont(new Font("Raleway", Font.BOLD, 14));
@@ -137,49 +145,48 @@ public class SignupTwo extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
 
-        String sreligion = (String) religion.getSelectedItem();
-        String scategory = (String) category.getSelectedItem();
-        String income = (String) incomeCat.getSelectedItem();
-        String qualification = (String) education.getSelectedItem();
-        String occupation = (String) occComboBox.getSelectedItem();
-        String pan_noString = panTextField.getText();
-        String aadharString = aadharTextField.getText();
-        String scitizen = null;
-        if (yesone.isSelected()) {
-            scitizen = "Yes";
-        } else if (noone.isSelected()) {
-            scitizen = "No";
-        }
+        if (e.getSource() == nextBtn) {
+            String sreligion = (String) religion.getSelectedItem();
+            String scategory = (String) category.getSelectedItem();
+            String income = (String) incomeCat.getSelectedItem();
+            String qualification = (String) education.getSelectedItem();
+            String occupation = (String) occComboBox.getSelectedItem();
+            String pan_noString = panTextField.getText();
+            String aadharString = aadharTextField.getText();
+            String scitizen = null;
+            if (yesone.isSelected()) {
+                scitizen = "Yes";
+            } else if (noone.isSelected()) {
+                scitizen = "No";
+            }
 
-        String existingAccount = null;
-        if (yestwo.isSelected()) {
-            existingAccount = "Yes";
-        } else if (notwo.isSelected()) {
-            existingAccount = "No";
-        }
+            try {
 
-        try {
+                Conn c = new Conn();
 
-            Conn c = new Conn();
+                String query = "insert into signuptwo values('" + formno + "', '" + sreligion + "', '" + scategory
+                        + "', '"
+                        + income + "', '" + qualification + "', '" + occupation + "', '" + pan_noString + "', '"
+                        + aadharString
+                        + "', '" + scitizen + "');";
 
-            String query = "insert into signuptwo values('" + formno + "', '" + sreligion + "', '" + scategory + "', '"
-                    + income + "', '" + qualification + "', '" + occupation + "', '" + pan_noString + "', '"
-                    + aadharString
-                    + "', '" + scitizen + "', '" + existingAccount + "');";
+                c.s.executeUpdate(query);
+                setVisible(false);
+                new SignupThree(formno).setVisible(true);
 
-            c.s.executeUpdate(query);
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+        } else if (e.getSource() == back) {
             setVisible(false);
-            new SignupThree(formno).setVisible(true);
-            
+            signupOneInstance.setVisible(true);
 
-        } catch (Exception ex) {
-            System.out.println(ex);
         }
 
     }
 
     public static void main(String[] args) {
-        new SignupTwo("");
+        new SignupTwo("", new SignupOne());
     }
 
 }

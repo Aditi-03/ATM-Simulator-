@@ -114,7 +114,7 @@ public class SignupThree extends JFrame implements ActionListener {
         c6.setBounds(360, 570, 200, 30);
         add(c6);
 
-        c7 = new JCheckBox("I hereby decalre that the above entered details are correct to the best of my knowledge");
+        c7 = new JCheckBox("I hereby declare that the above entered details are correct to the best of my knowledge");
         c7.setFont(new Font("RaleWay", Font.PLAIN, 12));
         c7.setBounds(100, 630, 800, 30);
         add(c7);
@@ -160,22 +160,32 @@ public class SignupThree extends JFrame implements ActionListener {
 
             String service = "";
             if (c1.isSelected()) {
-                service = service + " ATM Card";
-            } else if (c2.isSelected()) {
-                service = service + " Internet Banking";
-            } else if (c3.isSelected()) {
-                service = service + " Mobile Banking";
-            } else if (c4.isSelected()) {
-                service = service + " Email & SMS Alerts";
-            } else if (c5.isSelected()) {
-                service = service + " Check Book";
-            } else if (c6.isSelected()) {
+                service = service + " ATM Card,";
+            }
+            if (c2.isSelected()) {
+                service = service + " Internet Banking,";
+            }
+            if (c3.isSelected()) {
+                service = service + " Mobile Banking,";
+            }
+            if (c4.isSelected()) {
+                service = service + " Email & SMS Alerts,";
+            }
+            if (c5.isSelected()) {
+                service = service + " Check Book,";
+            }
+            if (c6.isSelected()) {
                 service = service + " E-Statement";
             }
 
             try {
                 if (type == null || type.equals("")) {
                     JOptionPane.showMessageDialog(null, "Account Type is Required");
+                    return;
+
+                } else if (c7.isSelected() == false) {
+                    JOptionPane.showMessageDialog(null, "Please accept the declaration to proceed");
+                    return;
                 } else {
                     Conn c = new Conn();
                     String query = "insert into signupthree values('" + formno + "', '" + type + "', '" + cardno

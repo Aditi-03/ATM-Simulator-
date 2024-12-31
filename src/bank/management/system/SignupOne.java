@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.*;
-// import java.util.*;
 
 public class SignupOne extends JFrame implements ActionListener
 
@@ -18,9 +17,13 @@ public class SignupOne extends JFrame implements ActionListener
 
     SignupOne() {
         setLayout(null);
+
         random = (long) (Math.random() * 9000) + 1000;
 
         JLabel formno = new JLabel("APPLICATION FORM NO. " + random);
+        // JLabel formno = new JLabel("APPLICATION FORM NO. " + (formno1 != null &&
+        // !formno1.isEmpty() ? formno1 : random));
+
         formno.setFont(new Font("RaleWay", Font.BOLD, 36));
         formno.setBounds(140, 20, 600, 40);
         add(formno);
@@ -189,27 +192,28 @@ public class SignupOne extends JFrame implements ActionListener
         try {
             if (name.equals("")) {
                 JOptionPane.showMessageDialog(null, "Name is Required");
-            }
-            else{
-                Conn c= new Conn();
-                // String query= "insert into signup values('" +formno+ "', "+name+"', "+ "', "+fname+"', "+dob+"', "+gender+"', "+email+"', "+marital+"', "+address+"', "+city+"', "+state+"', "+pincode+"');";
-                String query = "insert into signup values('" + formno + "', '" + name + "', '" + fname + "', '" + dob + "', '" + gender + "', '" + email + "', '" + marital + "', '" + address + "', '" + city + "', '" + state + "', '" + pincode + "');";
+            } else {
+                Conn c = new Conn();
+                String query = "insert into signup values('" + formno + "', '" + name + "', '" + fname + "', '" + dob
+                        + "', '" + gender + "', '" + email + "', '" + marital + "', '" + address + "', '" + city
+                        + "', '" + state + "', '" + pincode + "');";
 
                 c.s.executeUpdate(query);
 
                 setVisible(false);
-                new SignupTwo(formno).setVisible(true);
+                new SignupTwo(formno, this).setVisible(true);
             }
 
         } catch (Exception ex) {
             System.out.println(ex);
         }
 
-        
-
     }
 
     public static void main() {
         new SignupOne();
+    }
+
+    public class setVisible {
     }
 }
