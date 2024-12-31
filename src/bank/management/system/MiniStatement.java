@@ -46,7 +46,6 @@ public class MiniStatement extends JFrame {
         try {
             Conn c = new Conn();
 
-            // Fetch all transactions
             String query = "SELECT * FROM bank WHERE pin = '" + pinnumber + "' ORDER BY date DESC LIMIT 10";
 
             ResultSet rs = c.s.executeQuery(query);
@@ -63,7 +62,6 @@ public class MiniStatement extends JFrame {
             transactions.append("</html>");
             mini.setText(transactions.toString());
 
-            // Fetch the most recent balance
             String balanceQuery = "SELECT balance FROM bank WHERE pin = '" + pinnumber + "' ORDER BY date DESC LIMIT 1";
             ResultSet balanceRs = c.s.executeQuery(balanceQuery);
             if (balanceRs.next()) {

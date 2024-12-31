@@ -73,13 +73,6 @@ public class Deposit extends JFrame implements ActionListener {
                         currentBalance = rs.getInt("balance");
                     }
 
-                    // String query = "insert into bank values('" + pinnumber + "', '" + date + "','Deposit', '" + number
-                    //         + "');";
-
-                    // c.s.executeUpdate(query);
-                    // JOptionPane.showMessageDialog(null, "Rs " + number + " Deposited successfully");
-                    // setVisible(false);
-                    // new Transactions(pinnumber).setVisible(true);   int depositAmount = Integer.parseInt(number);
                     int depositAmount = Integer.parseInt(number);
                     int newBalance = currentBalance + depositAmount;
 

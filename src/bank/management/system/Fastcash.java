@@ -82,28 +82,6 @@ public class Fastcash extends JFrame implements ActionListener {
             Date date = new Date();
             Conn c = new Conn();
             try {
-                // String query = "Select * from bank where pin='" + pinnumber + "' ";
-                // ResultSet rs = c.s.executeQuery(query);
-
-                // int balance = 0;
-                // while (rs.next()) {
-                //     if (rs.getString("type").equals("Deposit")) {
-                //         balance += Integer.parseInt(rs.getString("amount"));
-                //     } else {
-                //         balance -= Integer.parseInt(rs.getString("amount"));
-                //     }
-                // }
-                // if (e.getSource() != exit && balance < Integer.parseInt(amount)) {
-                //     JOptionPane.showMessageDialog(null, "Insufficient Balance!");
-                //     return;
-                // }
-                // Date date = new Date();
-                // String query1 = "insert into bank values('" + pinnumber + "', '" + date + "', 'Withdrawl', '" + amount
-                //         + "')";
-                // c.s.executeUpdate(query1);
-                // JOptionPane.showMessageDialog(null, "Rs " + amount + "debited successfully");
-                // setVisible(false);
-                // new Transactions(pinnumber).setVisible(true);
                 
                     String query1 = "SELECT balance FROM bank WHERE pin = '" + pinnumber
                             + "' ORDER BY date DESC LIMIT 1";

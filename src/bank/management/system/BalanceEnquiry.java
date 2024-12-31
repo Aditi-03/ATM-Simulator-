@@ -5,7 +5,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
-import java.util.Date;
 
 public class BalanceEnquiry extends JFrame implements ActionListener {
 
@@ -35,7 +34,6 @@ public class BalanceEnquiry extends JFrame implements ActionListener {
             String query = "SELECT balance FROM bank WHERE pin='" + pinnumber + "' ORDER BY date DESC LIMIT 1";
             ResultSet rs = c.s.executeQuery(query);
 
-            // Fetch the latest balance
             if (rs.next()) {
                 balance = rs.getInt("balance");
             }
@@ -61,40 +59,6 @@ public class BalanceEnquiry extends JFrame implements ActionListener {
         setVisible(false);
         new Transactions(pinnumber).setVisible(true);
 
-        // if (e.getSource() == exit) {
-        // setVisible(false);
-        // new Transactions(pinnumber).setVisible(true);
-        // } else {
-        // String amount = ((JButton) e.getSource()).getText().substring(3);
-        // Conn c = new Conn();
-        // try {
-        // String query = "Select * from bank where pin='" + pinnumber + "' ";
-        // ResultSet rs = c.s.executeQuery(query);
-
-        // int balance = 0;
-        // while (rs.next()) {
-        // if (rs.getString("type").equals("Deposit")) {
-        // balance += Integer.parseInt(rs.getString("amount"));
-        // } else {
-        // balance -= Integer.parseInt(rs.getString("amount"));
-        // }
-        // }
-        // if (e.getSource() != exit && balance < Integer.parseInt(amount)) {
-        // JOptionPane.showMessageDialog(null, "Insufficient Balance!");
-        // return;
-        // }
-        // Date date = new Date();
-        // String query1 = "insert into bank values('" + pinnumber + "', '" + date + "',
-        // 'Withdrawl', '" + amount
-        // + "')";
-        // c.s.executeUpdate(query1);
-        // JOptionPane.showMessageDialog(null, "Rs " + amount + "debited successfully");
-        // setVisible(false);
-        // new Transactions(pinnumber).setVisible(true);
-
-        // } catch (Exception ex) {
-        // System.out.println(ex);
-        // }
     }
 
     public static void main() {

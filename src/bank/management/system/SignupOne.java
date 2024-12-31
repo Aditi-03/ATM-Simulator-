@@ -21,9 +21,7 @@ public class SignupOne extends JFrame implements ActionListener
         random = (long) (Math.random() * 9000) + 1000;
 
         JLabel formno = new JLabel("APPLICATION FORM NO. " + random);
-        // JLabel formno = new JLabel("APPLICATION FORM NO. " + (formno1 != null &&
-        // !formno1.isEmpty() ? formno1 : random));
-
+    
         formno.setFont(new Font("RaleWay", Font.BOLD, 36));
         formno.setBounds(140, 20, 600, 40);
         add(formno);

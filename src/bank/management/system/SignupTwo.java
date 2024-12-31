@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-// import java.util.*;
 public class SignupTwo extends JFrame implements ActionListener {
 
     JTextField panTextField, aadharTextField;
@@ -111,19 +110,6 @@ public class SignupTwo extends JFrame implements ActionListener {
         ButtonGroup citizerGroup = new ButtonGroup();
         citizerGroup.add(yesone);
         citizerGroup.add(noone);
-
-        // JLabel exists = new JLabel("Existing Account");
-        // exists.setFont(new Font("RaleWay", Font.BOLD, 20));
-        // exists.setBounds(100, 540, 200, 30);
-        // add(exists);
-
-        // yestwo = new JRadioButton("Yes");
-        // yestwo.setBounds(300, 540, 60, 30);
-        // add(yestwo);
-
-        // notwo = new JRadioButton("No");
-        // notwo.setBounds(450, 540, 60, 30);
-        // add(notwo);
 
         back = new JButton("Back");
         back.setFont(new Font("Raleway", Font.BOLD, 14));
